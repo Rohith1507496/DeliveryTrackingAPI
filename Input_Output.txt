@@ -1,0 +1,292 @@
+=========================================================
+        DELIVERY TRACKING API - INPUT & OUTPUT
+=========================================================
+
+Project Name : Delivery Tracking API
+Language     : Java
+Testing Tool : Thunder Client
+Port         : 8080
+
+=========================================================
+1. REGISTER MERCHANT
+=========================================================
+
+Method:
+POST
+
+URL:
+http://localhost:8080/api/auth/register
+
+Input:
+
+{
+  "username": "merchant1",
+  "password": "123",
+  "email": "merchant1@gmail.com",
+  "role": "MERCHANT"
+}
+
+Output:
+
+{
+  "message": "registered",
+  "username": "merchant1",
+  "role": "MERCHANT"
+}
+
+=========================================================
+2. LOGIN MERCHANT
+=========================================================
+
+Method:
+POST
+
+URL:
+http://localhost:8080/api/auth/login
+
+Input:
+
+{
+  "username": "merchant1",
+  "password": "123"
+}
+
+Output:
+
+{
+  "token": "MERCHANT_TOKEN",
+  "role": "MERCHANT",
+  "username": "merchant1"
+}
+
+=========================================================
+3. REGISTER AGENT
+=========================================================
+
+Method:
+POST
+
+URL:
+http://localhost:8080/api/auth/register
+
+Input:
+
+{
+  "username": "agent1",
+  "password": "123",
+  "email": "agent1@gmail.com",
+  "role": "AGENT"
+}
+
+Output:
+
+{
+  "message": "registered",
+  "username": "agent1",
+  "role": "AGENT"
+}
+
+=========================================================
+4. LOGIN AGENT
+=========================================================
+
+Method:
+POST
+
+URL:
+http://localhost:8080/api/auth/login
+
+Input:
+
+{
+  "username": "agent1",
+  "password": "123"
+}
+
+Output:
+
+{
+  "token": "AGENT_TOKEN",
+  "role": "AGENT",
+  "username": "agent1"
+}
+
+=========================================================
+5. CREATE SHIPMENT
+=========================================================
+
+Method:
+POST
+
+URL:
+http://localhost:8080/api/shipments
+
+Header:
+
+Authorization : Bearer MERCHANT_TOKEN
+
+Input:
+
+{
+  "originHub": "A",
+  "destHub": "D",
+  "customerEmail": "customer@gmail.com"
+}
+
+Output:
+
+{
+  "id": "55b4b270-c9b6-4e8a-910d-06c544a98555",
+  "trackingToken": "043ddfffbce44ecaa14c701981faa635",
+  "status": "CREATED",
+  "agentAssigned": "agent1",
+  "etaHours": 4.5
+}
+
+=========================================================
+6. UPDATE SHIPMENT STATUS
+=========================================================
+
+Method:
+PUT
+
+URL:
+http://localhost:8080/api/shipments/status
+
+Header:
+
+Authorization : Bearer AGENT_TOKEN
+
+Input:
+
+{
+  "shipmentId": "55b4b270-c9b6-4e8a-910d-06c544a98555",
+  "status": "PICKED_UP"
+}
+
+Output:
+
+{
+  "id": "55b4b270-c9b6-4e8a-910d-06c544a98555",
+  "status": "PICKED_UP",
+  "historyTop": "PICKED_UP@2026-06-30T14:55:37.807922800Z"
+}
+
+=========================================================
+7. TRACK SHIPMENT
+=========================================================
+
+Method:
+GET
+
+URL:
+
+http://localhost:8080/api/track?token=043ddfffbce44ecaa14c701981faa635
+
+Header:
+
+No Authorization Required
+
+Input:
+
+Tracking Token:
+043ddfffbce44ecaa14c701981faa635
+
+Expected Output:
+
+{
+  "id": "55b4b270-c9b6-4e8a-910d-06c544a98555",
+  "trackingToken": "043ddfffbce44ecaa14c701981faa635",
+  "status": "PICKED_UP",
+  "agentAssigned": "agent1",
+  "etaHours": 4.5
+}
+
+=========================================================
+8. CHECK AGENT LOAD
+=========================================================
+
+Method:
+GET
+
+URL:
+
+http://localhost:8080/api/agents/load
+
+Header:
+
+Authorization : Bearer AGENT_TOKEN
+
+Input:
+
+No Request Body
+
+Output:
+
+[
+  {
+    "agent": "agent1",
+    "activeShipments": 2
+  }
+]
+
+=========================================================
+PROJECT EXECUTION FLOW
+=========================================================
+
+Start Server
+      ↓
+Register Agent
+      ↓
+Login Agent
+      ↓
+Register Merchant
+      ↓
+Login Merchant
+      ↓
+Create Shipment
+      ↓
+Update Shipment Status
+      ↓
+Track Shipment
+      ↓
+Check Agent Load
+
+=========================================================
+TECHNOLOGIES USED
+=========================================================
+
+• Java (JDK 26)
+• Java HttpServer
+• Core Java
+• Collections Framework
+• UUID
+• HashMap
+• VS Code
+• Thunder Client
+• REST API
+• JSON
+
+=========================================================
+PROJECT STATUS
+=========================================================
+
+✔ Register Merchant - Success
+
+✔ Login Merchant - Success
+
+✔ Register Agent - Success
+
+✔ Login Agent - Success
+
+✔ Create Shipment - Success
+
+✔ Update Shipment Status - Success
+
+✔ Track Shipment - Success
+
+✔ Check Agent Load - Success
+
+=========================================================
+END OF DOCUMENT
+=========================================================
